@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -61,6 +62,20 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				/* SmartPeak Performance Colors */
+				glass: {
+					bg: 'hsl(var(--glass-bg))',
+					border: 'hsl(var(--glass-border))',
+					shadow: 'hsl(var(--glass-shadow))'
+				},
+				success: 'hsl(var(--success))',
+				warning: 'hsl(var(--warning))',
+				chart: {
+					excellent: 'hsl(var(--chart-excellent))',
+					good: 'hsl(var(--chart-good))',
+					average: 'hsl(var(--chart-average))',
+					poor: 'hsl(var(--chart-poor))'
 				}
 			},
 			borderRadius: {
@@ -84,11 +99,58 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				/* SmartPeak Custom Animations */
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+					'33%': { transform: 'translateY(-30px) rotate(1deg)' },
+					'66%': { transform: 'translateY(-20px) rotate(-1deg)' }
+				},
+				'pulseGlow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 20px hsl(var(--primary) / 0.2)' 
+					},
+					'50%': { 
+						boxShadow: '0 0 40px hsl(var(--primary) / 0.4)' 
+					}
+				},
+				'slideInUp': {
+					from: {
+						opacity: '0',
+						transform: 'translateY(50px)'
+					},
+					to: {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'fadeInScale': {
+					from: {
+						opacity: '0',
+						transform: 'scale(0.9)'
+					},
+					to: {
+						opacity: '1',
+						transform: 'scale(1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				/* SmartPeak Custom Animations */
+				'float': 'float 20s ease-in-out infinite',
+				'pulse-glow': 'pulseGlow 3s ease-in-out infinite', 
+				'slide-in-up': 'slideInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+				'fade-in-scale': 'fadeInScale 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+			},
+			fontFamily: {
+				sans: ['Inter', 'system-ui', 'sans-serif'],
+			},
+			backgroundImage: {
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-glass': 'var(--gradient-glass)',
+				'gradient-glow': 'var(--gradient-glow)'
 			}
 		}
 	},
