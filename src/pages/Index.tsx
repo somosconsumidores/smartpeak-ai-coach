@@ -3,8 +3,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowRight, BarChart3, Brain, TrendingUp, Zap, Activity, Target, Users } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-athlete.jpg";
+import { useEffect, useState } from "react";
+import { supabase } from "@/lib/supabaseClient";
 
 const Index = () => {
+  const [users, setUsers] = useState<any[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const { data, error } = await supabase.from("users").select("*");
+
+      if (error) {
+        setError(error.message);
+        console.error("Error fetching users:", error);
+      } else {
+        setUsers(data);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background particles-bg">
       {/* Navigation */}
@@ -129,6 +149,37 @@ const Index = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Supabase Test Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center space-y-4 mb-16">
+            <h2 className="text-4xl font-bold text-foreground">
+              Supabase Integration Test
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Fetching users from the 'users' table.
+            </p>
+          </div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Users</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {error && <p className="text-red-500">{error}</p>}
+              {users.length > 0 ? (
+                <ul>
+                  {users.map((user) => (
+                    <li key={user.id}>{JSON.stringify(user)}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No users found or still loading...</p>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </section>
 
